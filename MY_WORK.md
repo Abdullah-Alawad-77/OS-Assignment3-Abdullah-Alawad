@@ -42,7 +42,7 @@
 
 ## 🎥 Video Link
 
-**Video Link**: [Paste your video link here]
+**Video Link**:https://drive.google.com/file/d/1Po5tJEGjx4nLXMoKOolb2RmYLYtRZMzA/view?usp=drive_link
 
 > ⚠️ **WARNING:** The video must be **publicly accessible** ("Anyone with the link can view") on **Google Drive**, **YouTube (Unlisted or Public)** or any other cloud file-sharing system. A private, restricted or broken link counts as a **missing video (-1 mark)**.
 >
@@ -420,7 +420,7 @@ A producer holds mutex and waits on empty while the buffer is full; the consumer
 - [x] My code is based **only** on the starter of this repository (nothing copied from previous assignments)
 - [x] Code compiles and runs with no errors, and terminates by itself (no `⛔ WATCHDOG`)
 - [x] Feature 1 (ready queue lock), Feature 2 (statistics locks) and Feature 3 (semaphore, no busy waiting) all work
-- [ ] **The four verification lines are ✔ in 5 consecutive runs**
+- [x] **The four verification lines are ✔ in 5 consecutive runs**
 - [x] Every lock is released in a `finally` block
 - [x] `RaceWindow`, `Config`, the verification block and the watchdog are **unchanged**
 - [x] Each feature has clear comments
@@ -428,7 +428,7 @@ A producer holds mutex and waits on empty while the buffer is full; the consumer
 **Commits**
 - [x] **At least 4 meaningful commits, ideally 7 or more**
 - [x] **One commit per feature**
-- [ ] Commits are spread over **different dates** (not all in the last hour)
+- [x] Commits are spread over **different dates** (not all in the last hour)
 - [x] Everything is **pushed** to GitHub
 
 **This file (`MY_WORK.md`)**
@@ -440,11 +440,11 @@ A producer holds mutex and waits on empty while the buffer is full; the consumer
 - [x] No section headers deleted
 
 **Video**
-- [ ] 2-3 minutes long, named `StudentID_Assignment3_Demo.mp4`
-- [ ] Shows your name, ID, repository, 3 features (and your lock granularity choice), IDE execution with the verification block, one synchronization concept, and commit history
-- [ ] Link is **public** (tested in an incognito window) and pasted in the **Video Link** section above
+- [x] 2-3 minutes long, named `StudentID_Assignment3_Demo.mp4`
+- [x] Shows your name, ID, repository, 3 features (and your lock granularity choice), IDE execution with the verification block, one synchronization concept, and commit history
+- [x] Link is **public** (tested in an incognito window) and pasted in the **Video Link** section above
  
 **Blackboard**
-- [ ] Submit **only** the link to your public GitHub repository
+- [x] Submit **only** the link to your public GitHub repository
 
 > 🎯 **Good luck!** Start early, commit regularly, and make sure you can explain every line you submit.
