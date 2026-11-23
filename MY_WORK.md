@@ -132,7 +132,7 @@
 
 ## Your Development Log
 
-### Entry 1 - [ November 23, 2026, 2:55 PM]
+### Entry 1 - [November 22, 2026, 5:19 PM]
 **What I did**:
 Forked the starter repository, cloned it into VS Code and set my student ID
 **Details**:
@@ -149,7 +149,7 @@ The cycle was checked using Git Status, git add, git commit -m, and git push ori
 
 ---
 
-### Entry 2 - [ November 23, 2026, 3:10 PM]
+### Entry 2 - [November 22, 2026, 5:45 PM]
 **What I did**:
  Ran the original starter and analyzed why it fails
 **Details**:
@@ -168,7 +168,7 @@ Read ReadyQueue.poll(): RaceWindow.pause() sits between getFirst() and removeFir
  45 minutes
 ---
 
-### Entry 3 - [Date and Time]
+### Entry 3 - [November 22, 2026, 7:04 PM]
 **What I did**:
 Feature 1: protected the ready queue with a ReentrantLock
 **Details**:
@@ -184,7 +184,7 @@ Saved a backup copy, restored the file with git restore and re-added the code on
  1 hour
 ---
 
-### Entry 4 - [Date and Time]
+### Entry 4 - [November 22, 2026, 7:11 PM]
 **What I did**:Feature 2: protected the shared statistics
 
 **Details**:
@@ -201,7 +201,7 @@ The three variables are independent, so I used one lock per variable to allow mo
 45 minutes
 ---
 
-### Entry 5 - [Date and Time]
+### Entry 5 - [November 22, 2026, 7:35 PM]
 **What I did**:
 Feature 3: replaced busy waiting with a counting semaphore
 **Details**:
@@ -220,7 +220,7 @@ Deleted the whole old polling block and wrote acquire(), the shutdown check and 
 2 hours
 ---
 
-### Entry 6 - [Optional - Date and Time]
+### Entry 6 - [November 23, 2026, 3:44 PM]
 **What I did**:
 Wrote MY_WORK.md and recorded the video
 **Details**:
@@ -238,8 +238,7 @@ Wrote the points in Arabic first, then translated them and checked them against 
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [6 hours]
-Stopping the CPUs cleanly with the semaphore (release(totalCPUs)) and fixing the duplicate variable error
+**Total time spent on assignment**: 6 hours
 **Most challenging part**:
 Stopping the CPUs cleanly with the semaphore (release(totalCPUs)) and fixing the duplicate variable error
 **Most interesting learning**:
@@ -264,7 +263,7 @@ The same code gives wrong results randomly without locks and consistent results 
 
 **Your Answer:** *(5-7 sentences)*
 
-[In this assignment, I found out that the race condition occurs when a few threads read and write a shared variable unprotected, since an incrementation of the counter, for example, count++, consists of three operations: read, modification and write. The starter selected three CPUs for the same process P1, while P2 and P3 processes were lost. It means that even such a simple structure as the queue is a critical section. I learned how to protect critical sections using ReentrantLock and release the lock in the finally block to make sure that the lock will be released even if there is a return or exception. I learned that counting semaphore may be used to eliminate busy waiting, because instead of checking empty queue every 20 ms, a CPU just blocks on acquire(). As a result, after making changes, I obtained 20 context switches, 10 completed processes and 29777 ms service time with 0 busy-waiting polls in my verification block. But most importantly, I learned that all these bugs occur randomly.]
+In this assignment, I found out that the race condition occurs when a few threads read and write a shared variable unprotected, since an incrementation of the counter, for example, count++, consists of three operations: read, modification and write. The starter selected three CPUs for the same process P1, while P2 and P3 processes were lost. It means that even such a simple structure as the queue is a critical section. I learned how to protect critical sections using ReentrantLock and release the lock in the finally block to make sure that the lock will be released even if there is a return or exception. I learned that counting semaphore may be used to eliminate busy waiting, because instead of checking empty queue every 20 ms, a CPU just blocks on acquire(). As a result, after making changes, I obtained 20 context switches, 10 completed processes and 29777 ms service time with 0 busy-waiting polls in my verification block. But most importantly, I learned that all these bugs occur randomly.
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -272,7 +271,7 @@ The same code gives wrong results randomly without locks and consistent results 
 
 **Your Answer:** *(5-7 sentences)*
 
-[The most challenging part for me was Feature 3, especially stopping the CPUs cleanly after replacing the polling loop with a semaphore. I realized that a CPU waiting on an empty queue would block forever once the last process finished. I had to understand that the last CPU must call release(totalCPUs) so every blocked CPU wakes up, checks the completed counter and returns. My first attempt also failed to compile with "Duplicate local variable thread" because I had written the new code inside the old if (thread == null) block. It was difficult because the problem was not only syntax, but also how the threads interact with each other.]
+The most challenging part for me was Feature 3, especially stopping the CPUs cleanly after replacing the polling loop with a semaphore. I realized that a CPU waiting on an empty queue would block forever once the last process finished. I had to understand that the last CPU must call release(totalCPUs) so every blocked CPU wakes up, checks the completed counter and returns. My first attempt also failed to compile with "Duplicate local variable thread" because I had written the new code inside the old if (thread == null) block. It was difficult because the problem was not only syntax, but also how the threads interact with each other.
 
 ## Question 3: How did you overcome the challenges you faced?
 
@@ -280,7 +279,7 @@ The same code gives wrong results randomly without locks and consistent results 
 
 **Your Answer:** *(5-7 sentences)*
 
-[I overcame the challenges by working in small steps and running the program after every change. When the compile error appeared, I read the message in the VS Code Problems tab, went to the line it pointed to and removed the old polling block. I compared the output of each version with the verification block, for example after Feature 1 I saw 18 instead of 20 context switches, which told me the counters still needed locks. I ran the final program five times to make sure all four checks passed and that it terminated by itself. I also used git log and the Commits page on GitHub to confirm that each feature was committed separately. Re-reading the README helped me place release() after the unlock and acquire() outside any lock.]
+I overcame the challenges by working in small steps and running the program after every change. When the compile error appeared, I read the message in the VS Code Problems tab, went to the line it pointed to and removed the old polling block. I compared the output of each version with the verification block, for example after Feature 1 I saw 18 instead of 20 context switches, which told me the counters still needed locks. I ran the final program five times to make sure all four checks passed and that it terminated by itself. I also used git log and the Commits page on GitHub to confirm that each feature was committed separately. Re-reading the README helped me place release() after the unlock and acquire() outside any lock.
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -288,19 +287,19 @@ The same code gives wrong results randomly without locks and consistent results 
 
 **Your Answer:** *(5-7 sentences)*
 
-[Synchronization is used in banking systems, where two transfers must not update the same balance at the same time, otherwise one update is lost like my contextSwitchCount. Ticket and seat booking systems use locks so that two users cannot reserve the same seat, which is similar to two CPUs picking the same process. A print queue is a producer-consumer problem: programs add jobs and the printer removes them, as my CPUs take processes from the ReadyQueue. A website visitor counter updated by many requests needs a lock, just like my shared statistics. Databases use locks to keep transactions consistent when many users work on the same data. Operating systems use semaphores so that waiting threads sleep instead of wasting CPU time, as in my final version with 0 busy-waiting polls.]
+Synchronization is used in banking systems, where two transfers must not update the same balance at the same time, otherwise one update is lost like my contextSwitchCount. Ticket and seat booking systems use locks so that two users cannot reserve the same seat, which is similar to two CPUs picking the same process. A print queue is a producer-consumer problem: programs add jobs and the printer removes them, as my CPUs take processes from the ReadyQueue. A website visitor counter updated by many requests needs a lock, just like my shared statistics. Databases use locks to keep transactions consistent when many users work on the same data. Operating systems use semaphores so that waiting threads sleep instead of wasting CPU time, as in my final version with 0 busy-waiting polls.
 
 ### Optional: What would you like to learn more about?
 
-[Deadlock detection and the dining philosophers problem.]
+Deadlock detection and the dining philosophers problem.
 
 ### Optional: How confident do you feel about synchronization concepts now?
 
-[Intermediate. I understand locks, semaphores and race conditions, but I need more practice with deadlock.]
+Intermediate. I understand locks, semaphores and race conditions, but I need more practice with deadlock.
 
 ### Optional: Feedback on the assignment
 
-[It was very useful because the starter shows the bugs clearly. The verification block helped me check my work after each feature.]
+It was very useful because the starter shows the bugs clearly. The verification block helped me check my work after each feature.
 
 ---
 
@@ -322,31 +321,31 @@ The same code gives wrong results randomly without locks and consistent results 
 
 **Your Answer:** *(3-5 sentences)*
 
-[In my original starter run, the verification block showed 16 context switches instead of 20, 8 completed processes instead of 10, 23170 ms of service time instead of 29777 ms, and 711 busy-waiting polls instead of 0. A lost update happens like this: CPU-1 reads contextSwitchCount (for example 5), then RaceWindow.pause() lets CPU-2 read the same value 5, CPU-1 writes 6 and CPU-2 also writes 6, so one increment is lost. I saw this pattern after Feature 1: with only the queue protected, I got 18 context switches instead of 20 and 25777 ms instead of 29777 ms, a difference of exactly 2 x 2000 ms. On a real machine the same bug exists without RaceWindow, because count++ is three steps (read, modify, write) and the scheduler can preempt a thread between them. It is hard to detect because the window is only a few nanoseconds, so the error appears rarely and randomly and is difficult to reproduce.]
+In my original starter run, the verification block showed 16 context switches instead of 20, 8 completed processes instead of 10, 23170 ms of service time instead of 29777 ms, and 711 busy-waiting polls instead of 0. A lost update happens like this: CPU-1 reads contextSwitchCount (for example 5), then RaceWindow.pause() lets CPU-2 read the same value 5, CPU-1 writes 6 and CPU-2 also writes 6, so one increment is lost. I saw this pattern after Feature 1: with only the queue protected, I got 18 context switches instead of 20 and 25777 ms instead of 29777 ms, a difference of exactly 2 x 2000 ms. On a real machine the same bug exists without RaceWindow, because count++ is three steps (read, modify, write) and the scheduler can preempt a thread between them. It is hard to detect because the window is only a few nanoseconds, so the error appears rarely and randomly and is difficult to reproduce.
 
 Verification block of the **original starter**:
 ```
-[⛔ WATCHDOG: the simulation did not finish (19 s). A process was lost, or a CPU is blocked forever, or the 'completed' counter lost an update.
+⛔ WATCHDOG: the simulation did not finish (19 s). A process was lost, or a CPU is blocked forever, or the 'completed' counter lost an update.
 
 ═══ VERIFICATION (expected values are computed from YOUR seed) ═══
   Context switches (quanta executed)     expected 20       observed 16       ✘ MISMATCH
   Completed processes                    expected 10       observed 8        ✘ MISMATCH
   Total service time (ms)                expected 29777    observed 23170    ✘ MISMATCH
-  Busy-waiting polls (must be 0)         expected 0        observed 711      ✘ MISMATCH]
+  Busy-waiting polls (must be 0)         expected 0        observed 711      ✘ MISMATCH
 ```
 
 Verification block of **my final version**:
 ```
-[═══ VERIFICATION (expected values are computed from YOUR seed) ═══
+═══ VERIFICATION (expected values are computed from YOUR seed) ═══
   Context switches (quanta executed)     expected 20       observed 20       ✔
   Completed processes                    expected 10       observed 10       ✔
   Total service time (ms)                expected 29777    observed 29777    ✔
   Busy-waiting polls (must be 0)         expected 0        observed 0        ✔
-  ✔ All shared values are consistent.]
+  ✔ All shared values are consistent.
 ```
 
 **Explanation of the timeline:**
-[In the starter, CPU-1 to CPU-4 all read P1 as the head of the queue, then paused inside RaceWindow.pause(). After the pause each CPU executed removeFirst(), so each one removed a different element (P1, P2, P3 and P4), but all four started the thread of P1, which is why three of them crashed with IllegalThreadStateException. P2 and P3 were removed without ever being run, which explains the missing 4 context switches (2 processes x 2 quanta), the 2 missing completions and the missing 6607 ms (3671 + 2936). The pure lost-update on a counter is the timeline described above: both CPUs read the same value, both write value + 1, and one increment disappears.]
+In the starter, CPU-1 to CPU-4 all read P1 as the head of the queue, then paused inside RaceWindow.pause(). After the pause each CPU executed removeFirst(), so each one removed a different element (P1, P2, P3 and P4), but all four started the thread of P1, which is why three of them crashed with IllegalThreadStateException. P2 and P3 were removed without ever being run, which explains the missing 4 context switches (2 processes x 2 quanta), the 2 missing completions and the missing 6607 ms (3671 + 2936). The pure lost-update on a counter is the timeline described above: both CPUs read the same value, both write value + 1, and one increment disappears.
 
 ## Question 2: Critical Sections and Lock Granularity
 
@@ -356,15 +355,14 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[I protected the ReadyQueue methods add(), poll(), processOf() and snapshot() with queueLock, and the three shared counters with contextSwitchLock, completedLock and serviceTimeLock, including their getters. I used one lock per variable because the three variables are independent, so a CPU updating contextSwitchCount does not need to block another CPU updating totalServiceTime; the trade-off is a few more locks to manage in exchange for more parallelism. The ready queue uses a different lock because it protects different data, and sharing one lock would make threads wait for each other for no reason. Mutual exclusion is guaranteed because only the thread holding the lock can run the read-modify-write sequence, and progress holds because the lock is free whenever nobody is inside the critical section. A default ReentrantLock is not fair, so in theory a thread could wait a long time (no strict bounded waiting), but my critical sections are very short, so starvation is unlikely in practice.]
+I protected the ReadyQueue methods add(), poll(), processOf() and snapshot() with queueLock, and the three shared counters with contextSwitchLock, completedLock and serviceTimeLock, including their getters. I used one lock per variable because the three variables are independent, so a CPU updating contextSwitchCount does not need to block another CPU updating totalServiceTime; the trade-off is a few more locks to manage in exchange for more parallelism. The ready queue uses a different lock because it protects different data, and sharing one lock would make threads wait for each other for no reason. Mutual exclusion is guaranteed because only the thread holding the lock can run the read-modify-write sequence, and progress holds because the lock is free whenever nobody is inside the critical section. A default ReentrantLock is not fair, so in theory a thread could wait a long time (no strict bounded waiting), but my critical sections are very short, so starvation is unlikely in practice.
 
 | Critical section (variable / method) | Lock used | Why it needs protection |
-ReadyQueue.add(), poll(), processOf(), snapshot()	queueLock	list and map are shared by all CPUs
-incrementContextSwitch() and getContextSwitchCount()	contextSwitchLock	read-modify-write on contextSwitchCount
-incrementCompletedProcess() and getCompletedProcessCount()	completedLock	read-modify-write on completedProcessCount
-addServiceTime() and getTotalServiceTime()	serviceTimeLock	read-modify-write on totalServiceTime
-| [e.g., `ReadyQueue.poll()`] | [lock name] | [reason] |
-| [...] | [...] | [...] |
+|---|---|---|
+| `ReadyQueue.add()`, `poll()`, `processOf()`, `snapshot()` | `queueLock` | `list` and `map` are shared by all CPUs |
+| `incrementContextSwitch()` and `getContextSwitchCount()` | `contextSwitchLock` | Read-modify-write and visibility on `contextSwitchCount` |
+| `incrementCompletedProcess()` and `getCompletedProcessCount()` | `completedLock` | Read-modify-write and visibility on `completedProcessCount` |
+| `addServiceTime()` and `getTotalServiceTime()` | `serviceTimeLock` | Read-modify-write and visibility on `totalServiceTime` |
 
 ## Question 3: Busy Waiting vs Semaphore
 
@@ -374,7 +372,7 @@ addServiceTime() and getTotalServiceTime()	serviceTimeLock	read-modify-write on 
 
 **Your Answer:** *(3-5 sentences)*
 
-[In the starter, a CPU that found the queue empty slept 20 ms and checked again, which is busy waiting that wastes CPU time, and my starter run counted 711 polls. In my solution the semaphore readyCount represents the number of processes waiting in the ready queue, so its initial value is 0 because the queue is empty at creation, and it becomes 10 after the 10 initial add() calls. Each add() calls release() and each CPU calls acquire() before poll(), so a CPU with nothing to run is blocked instead of running. When the last process completes, the last CPU calls release(totalCPUs) to wake every blocked CPU so it can see that completed equals total and return. Without it, the CPUs waiting in acquire() would never be woken, the program would hang and the watchdog would stop it.]
+In the starter, a CPU that found the queue empty slept 20 ms and checked again, which is busy waiting that wastes CPU time, and my starter run counted 711 polls. In my solution the semaphore readyCount represents the number of processes waiting in the ready queue, so its initial value is 0 because the queue is empty at creation, and it becomes 10 after the 10 initial add() calls. Each add() calls release() and each CPU calls acquire() before poll(), so a CPU with nothing to run is blocked instead of running. When the last process completes, the last CPU calls release(totalCPUs) to wake every blocked CPU so it can see that completed equals total and return. Without it, the CPUs waiting in acquire() would never be woken, the program would hang and the watchdog would stop it.
 
 ## Question 4: Classical Problems and Deadlock
 
@@ -386,13 +384,13 @@ addServiceTime() and getTotalServiceTime()	serviceTimeLock	read-modify-write on 
 The ready queue and the CPUs form the Producer-Consumer (bounded buffer) problem of Chapter 5. The main thread produces the initial processes, and each CPU is a consumer when it takes a process and a producer when it puts an unfinished process back. For a queue with capacity K, I would use three semaphores: mutex = 1, empty = K and full = 0. A deadlock appears if a producer does wait(mutex) before wait(empty): when the buffer is full it holds the mutex while waiting for a free slot, and the consumer that could free a slot needs the same mutex. I would prevent it by always doing wait(empty) before wait(mutex), which breaks the hold-and-wait condition. 
 
 **Classical problem and roles**:
-[Producer-Consumer (bounded buffer). Producers: the main thread (initial add) and the CPUs (re-enqueue). Consumers: the CPUs (poll).]
+Producer-Consumer (bounded buffer). Producers: the main thread (initial add) and the CPUs (re-enqueue). Consumers: the CPUs (poll).
 
 **Semaphores for a bounded queue (name and initial value)**:
-[ mutex = 1, empty = K (free slots), full = 0 (filled slots).]
+ mutex = 1, empty = K (free slots), full = 0 (filled slots).
 
 **Deadlock scenario and prevention**:
-[A producer holds mutex and waits on empty while the buffer is full; the consumer needs mutex to free a slot, so both wait forever. I would break the hold-and-wait condition by calling wait(empty) before wait(mutex).]
+A producer holds mutex and waits on empty while the buffer is full; the consumer needs mutex to free a slot, so both wait forever. I would break the hold-and-wait condition by calling wait(empty) before wait(mutex).
 
 ## Summary
 
